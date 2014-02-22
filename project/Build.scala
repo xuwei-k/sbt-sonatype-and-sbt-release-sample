@@ -28,7 +28,7 @@ object build extends Build {
       </developers>
     ),
     licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT")),
-    scalacOptions ++= Seq("-deprecation", "-Xlint", "-unchecked", "-language:_"),
+    scalacOptions ++= Seq("-deprecation", "-Xlint", "-unchecked"),
     publishTo := {
       if(isSnapshot.value)
         Some("snapshots" at "https://oss.sonatype.org/content/repositories/snapshots")
