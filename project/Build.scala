@@ -6,8 +6,6 @@ import xerial.sbt.Sonatype._
 
 object build extends Build {
 
-  lazy val sonatypeReleaseAllTask = taskKey[Unit]("sonatypeReleaseAllTask")
-
   lazy val baseSettings = ReleasePlugin.releaseSettings ++ sonatypeSettings ++ Seq(
     scalaVersion := "2.10.3",
     crossScalaVersions := List("2.9.3", "2.10.3"),
@@ -35,7 +33,6 @@ object build extends Build {
       else
         Some("releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
     },
-    sonatypeReleaseAllTask := SonatypeKeys.sonatypeReleaseAll.toTask("").value,
     ReleasePlugin.ReleaseKeys.releaseProcess := Seq[ReleaseStep](
       checkSnapshotDependencies,
       inquireVersions,
@@ -55,7 +52,7 @@ object build extends Build {
       commitNextVersion,
       ReleaseStep{ state =>
         val extracted = Project extract state
-        extracted.runAggregated(sonatypeReleaseAllTask in Global in extracted.get(thisProjectRef), state)
+        extracted.runAggregated(SonatypeKeys.sonatypeReleaseAll in Global in extracted.get(thisProjectRef), state)
       },
       pushChanges
     )
