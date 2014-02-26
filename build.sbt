@@ -42,10 +42,6 @@ publishTo := {
     Some("releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
 }
 
-val sonatypeReleaseAllTask = taskKey[Unit]("sonatypeReleaseAllTask")
-
-sonatypeReleaseAllTask := SonatypeKeys.sonatypeReleaseAll.toTask("").value
-
 ReleaseKeys.releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
   inquireVersions,
@@ -60,7 +56,7 @@ ReleaseKeys.releaseProcess := Seq[ReleaseStep](
   ),
   setNextVersion,
   commitNextVersion,
-  ReleaseStep(state => Project.extract(state).runTask(sonatypeReleaseAllTask, state)._1),
+  ReleaseStep(state => Project.extract(state).runTask(SonatypeKeys.sonatypeReleaseAll, state)._1),
   pushChanges
 )
 
