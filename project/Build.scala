@@ -27,12 +27,6 @@ object build extends Build {
     ),
     licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT")),
     scalacOptions ++= Seq("-deprecation", "-Xlint", "-unchecked"),
-    publishTo := {
-      if(isSnapshot.value)
-        Some("snapshots" at "https://oss.sonatype.org/content/repositories/snapshots")
-      else
-        Some("releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
-    },
     ReleasePlugin.ReleaseKeys.releaseProcess := Seq[ReleaseStep](
       checkSnapshotDependencies,
       inquireVersions,
